@@ -16,6 +16,10 @@ export default function Mypage() {
   } = useForm();
 
   const [isFormVisible, setIsFormVisible] = useState(false);
+  const [isCustomRuleFormVisible, setIsCustomRuleFormVisible] = useState(false);
+  const [isSaveButtonVisible, setIsSaveButtonVisible] = useState(true); // 변경사항 저장 버튼 표시 여부
+  const [isLocked, setIsLocked] = useState(false); // 필드 잠금 상태 추가
+
 
   const onValid = (e) => {
     console.log(e, "onValid");
@@ -241,31 +245,75 @@ export default function Mypage() {
                 fontSize: "22px",
                 color: "#4470F3",
                 margin: "0 auto",
-                padding: "20px 0",
+                padding: "10px 0",
                 textAlign: "left",
-              }}
+                display:'flex',
+                justifyContent:'space-between',
+                alignItems:'center'
+            }}
             >
               나만의 일정표 커스텀 규칙
+              <div style={{display:'flex',alignItems:'center'}}>
+              {isSaveButtonVisible &&isCustomRuleFormVisible ? (
+            
+              <button
+                style={{
+                  width: "205px",
+                  height:"39px",
+                  cursor: "pointer",
+                  backgroundColor:'#4470F3',
+                  color:'white',
+                  border:'none',
+                  borderRadius:'28px',
+                  fontSize:'18px',
+                }}
+                onClick={() => setIsLocked(true)} // 필드 잠금
+                >
+                    변경사항 저장
+                </button>
+              ):(<div>
+            
+              </div>)}
+            {isCustomRuleFormVisible ? (
+            
               <img
                 src="../img/btn/edit_disabled.png"
+                onClick={() =>setIsCustomRuleFormVisible(true)}
                 style={{
-                  width: "25px",
+                  width: "42px",
+                  height: "40px",
                   cursor: "pointer",
-                  marginLeft: "445px",
-                  verticalAlign: "middle",
+                  marginLeft: "15px",
+                }}
+              />):(
+                <img
+                src="../img/btn/edit_enabled.png"
+                onClick={() =>setIsCustomRuleFormVisible(true)}
+                style={{
+                  width: "42px",
+                  height: "40px",
+                  cursor: "pointer",
+                  marginLeft: "15px",
                 }}
               />
+              )}
+
+              </div>
             </div>
+            {isCustomRuleFormVisible ? (
+
             <div
               style={{
                 width: "700px",
                 height: "520px",
                 margin: "0 auto",
-                backgroundColor: "#eee",
+                backgroundColor: "white",
                 borderRadius: "20px",
+                fontFamily: "Pretendard-Regular",
+                border: "1px solid #EDEDED",
               }}
             >
-              <div style={{ display: "flex",marginLeft:"23px", }}>
+              <div style={{ display: "flex", marginLeft: "23px" }}>
                 <div
                   style={{
                     display: "flex",
@@ -273,9 +321,15 @@ export default function Mypage() {
                     alignItems: "flex-start",
                   }}
                 >
-                  <p>목표 <b>워라벨</b> : </p>
-                  <p>하루 목표<b>수면시간</b> : </p>
-                  <p>하루 목표<b>운동시간</b> : </p>
+                  <p>
+                    목표 <b>워라벨</b> :{" "}
+                  </p>
+                  <p>
+                    하루 목표 <b>수면시간</b> :{" "}
+                  </p>
+                  <p>
+                    하루 목표 <b>운동시간</b> :{" "}
+                  </p>
                 </div>
 
                 <div
@@ -283,18 +337,34 @@ export default function Mypage() {
                     display: "flex",
                     flexDirection: "column",
                     color: "white",
-                    justifyContent:'space-between',
-                    marginLeft:'20px',
-                    marginTop:"4px",
-                    paddingTop:'6px',
-                    width:'300px',
-                    height:'148px'
+                    justifyContent: "space-between",
+                    marginLeft: "20px",
+                    marginTop: "4px",
+                    paddingTop: "6px",
+                    width: "300px",
+                    height: "148px",
                   }}
-                >{/*#EDEDED*/}
-                    
-                    <input type="text"style={{backgroundColor: "lightgray",fontWeight:'bolder'}}></input> 
-                  <input type="text"style={{backgroundColor: "lightgray",fontWeight:'bolder'}}></input>
-                  <input type="text"style={{backgroundColor: "lightgray",fontWeight:'bolder'}}></input>
+                >
+                  {/*#EDEDED*/}
+
+                  <input
+                    type="text"
+                    placeholder="목표 워라벨 비율을 입력해주세요"
+                    style={{ backgroundColor: isLocked ? "white" : "#EDEDED", fontWeight: "bolder" }}
+                      disabled={isLocked} // 필드 잠금
+                  ></input>
+                  <input
+                    type="text"
+                    placeholder="목표 운동시간을 입력해주세요"
+                    style={{ backgroundColor: isLocked ? "white" : "#EDEDED", fontWeight: "bolder" }}
+                    disabled={isLocked} // 필드 잠금
+                  ></input>
+                  <input
+                    type="text"
+                    placeholder="목표 운동시간을 입력해주세요"
+                    style={{ backgroundColor: isLocked ? "white" : "#EDEDED", fontWeight: "bolder" }}
+                    disabled={isLocked} // 필드 잠금
+                  ></input>
                 </div>
               </div>
 
@@ -303,28 +373,46 @@ export default function Mypage() {
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "flex-start",
-                  marginLeft:'19px'
+                  marginLeft: "19px",
                 }}
               >
-                <p style={{marginLeft:'3px'}}>그 외 세부사항</p>
+                <p style={{ marginLeft: "3px" }}>그 외 세부 사항</p>
                 <textarea
+                  placeholder="그 외 세부 사항이 필요하다면 입력해주세요"
                   style={{
                     width: "663px",
-                    height: "250px",
+                    height: "290px",
                     color: "black",
-                    backgroundColor: "lightgray",/*#EDEDED*/
-                    fontSize:'18px',
-                    resize: 'none',
-                    border: 'none', // 기본 테두리 제거
-                    borderRadius:'10px',
-                    padding: '10px', // 여백 추가
-                    boxSizing: 'border-box', // 패딩을 포함한 전체 크기 설정
+                    backgroundColor: isLocked ? "white" : "#EDEDED",
+                    fontSize: "18px",
+                    resize: "none",
+                    border: "none", // 기본 테두리 제거
+                    borderRadius: "10px",
+                    padding: "10px", // 여백 추가
+                    boxSizing: "border-box", // 패딩을 포함한 전체 크기 설정
+                    fontFamily: "Pretendard-Regular",
                   }}
+                  disabled={isLocked} // 필드 잠금
                 ></textarea>
               </div>
-
-              <div></div>
             </div>
+        ):(
+            <div
+            style={{
+              display: "flex",  
+              flexDirection: "column",
+              color: "#EDEDED", 
+              justifyContent: "space-between",
+              marginLeft: "20px",
+              marginTop: "4px",
+              paddingTop: "6px",
+              width: "300px",
+              height: "148px",
+            }}
+          ></div>
+          
+        )}
+            
           </div>
         </div>
       </div>
