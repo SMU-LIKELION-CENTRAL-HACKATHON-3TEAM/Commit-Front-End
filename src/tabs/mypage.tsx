@@ -16,7 +16,7 @@ export default function Mypage() {
   } = useForm();
 
   const [isFormVisible, setIsFormVisible] = useState(false);
-  const [isCustomRuleFormVisible, setIsCustomRuleFormVisible] = useState(false);
+  const [isRevising, setIsRevising] = useState(false);
   const [isSaveButtonVisible, setIsSaveButtonVisible] = useState(true); // 변경사항 저장 버튼 표시 여부
   const [isLocked, setIsLocked] = useState(false); // 필드 잠금 상태 추가
 
@@ -254,41 +254,28 @@ export default function Mypage() {
             >
               나만의 일정표 커스텀 규칙
               <div style={{display:'flex',alignItems:'center'}}>
-              {isSaveButtonVisible &&isCustomRuleFormVisible ? (
-            
+              {isRevising ?(
               <button
                 style={{
                   width: "205px",
                   height:"39px",
                   cursor: "pointer",
-                  backgroundColor:'#4470F3',
+                  backgroundColor: isLocked ? 'white':'#4470F3',
                   color:'white',
                   border:'none',
                   borderRadius:'28px',
                   fontSize:'18px',
+
+                 
                 }}
-                onClick={() => setIsLocked(true)} // 필드 잠금
+                onClick={() =>{ setIsLocked(true);setIsRevising(false);}} // 필드 잠금
                 >
                     변경사항 저장
                 </button>
-              ):(<div>
-            
-              </div>)}
-            {isCustomRuleFormVisible ? (
-            
-              <img
-                src="../img/btn/edit_disabled.png"
-                onClick={() =>setIsCustomRuleFormVisible(true)}
-                style={{
-                  width: "42px",
-                  height: "40px",
-                  cursor: "pointer",
-                  marginLeft: "15px",
-                }}
-              />):(
+              ):null}
                 <img
                 src="../img/btn/edit_enabled.png"
-                onClick={() =>setIsCustomRuleFormVisible(true)}
+                onClick={() =>{setIsRevising(true);setIsLocked(false);}}
                 style={{
                   width: "42px",
                   height: "40px",
@@ -296,12 +283,8 @@ export default function Mypage() {
                   marginLeft: "15px",
                 }}
               />
-              )}
-
               </div>
             </div>
-            {isCustomRuleFormVisible ? (
-
             <div
               style={{
                 width: "700px",
@@ -350,19 +333,21 @@ export default function Mypage() {
                   <input
                     type="text"
                     placeholder="목표 워라벨 비율을 입력해주세요"
-                    style={{ backgroundColor: isLocked ? "white" : "#EDEDED", fontWeight: "bolder" }}
+                    style={{ backgroundColor: isRevising ? "#EDEDED": "white" ,fontWeight: "bolder" 
+                    }}
+
                       disabled={isLocked} // 필드 잠금
                   ></input>
                   <input
                     type="text"
                     placeholder="목표 운동시간을 입력해주세요"
-                    style={{ backgroundColor: isLocked ? "white" : "#EDEDED", fontWeight: "bolder" }}
+                    style={{ backgroundColor: isRevising ? "#EDEDED": "white" , fontWeight: "bolder" }}
                     disabled={isLocked} // 필드 잠금
                   ></input>
                   <input
                     type="text"
                     placeholder="목표 운동시간을 입력해주세요"
-                    style={{ backgroundColor: isLocked ? "white" : "#EDEDED", fontWeight: "bolder" }}
+                    style={{ backgroundColor: isRevising ? "#EDEDED": "white" , fontWeight: "bolder" }}
                     disabled={isLocked} // 필드 잠금
                   ></input>
                 </div>
@@ -383,7 +368,7 @@ export default function Mypage() {
                     width: "663px",
                     height: "290px",
                     color: "black",
-                    backgroundColor: isLocked ? "white" : "#EDEDED",
+                    backgroundColor: isRevising ? "#EDEDED": "white",
                     fontSize: "18px",
                     resize: "none",
                     border: "none", // 기본 테두리 제거
@@ -396,8 +381,8 @@ export default function Mypage() {
                 ></textarea>
               </div>
             </div>
-        ):(
-            <div
+        
+            {/* <div
             style={{
               display: "flex",  
               flexDirection: "column",
@@ -409,10 +394,7 @@ export default function Mypage() {
               width: "300px",
               height: "148px",
             }}
-          ></div>
-          
-        )}
-            
+          ></div> */}
           </div>
         </div>
       </div>
