@@ -18,7 +18,7 @@ export default function Mypage() {
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [isRevising, setIsRevising] = useState(false);
   const [isSaveButtonVisible, setIsSaveButtonVisible] = useState(true); // 변경사항 저장 버튼 표시 여부
-  const [isLocked, setIsLocked] = useState(false); // 필드 잠금 상태 추가
+  const [isLocked, setIsLocked] = useState(true); // 필드 잠금 상태 추가
 
 
   const onValid = (e) => {
