@@ -137,6 +137,7 @@ export default function Addplan() {
                                     backgroundColor: '#eee',
                                     borderRadius: '20px',
                                     overflowY: 'auto',
+                                    paddingTop: '10px',
                                 }}
                             >
                                 <NewPlanDiv />

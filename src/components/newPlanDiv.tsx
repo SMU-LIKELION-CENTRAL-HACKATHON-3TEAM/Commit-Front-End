@@ -8,6 +8,12 @@ type TodayPlanProps = {
     date: Date;
 };
 
+type Box = {
+    selectedCategory: string | null;
+    isRightBoxClicked: boolean;
+    content: string;
+};
+
 export default function TodayPlanDiv(props: TodayPlanProps) {
     const [showNewBox, setShowNewBox] = useState(false);
     const [isRightBoxClicked, setIsRightBoxClicked] = useState(false);
@@ -25,15 +31,21 @@ export default function TodayPlanDiv(props: TodayPlanProps) {
         setShowNewBox(true);
     };
 
-    const handleRightBoxClick = (index) => {
+    const handleRightBoxClick = (index: number) => {
         const updatedBoxes = [...newBoxes];
         updatedBoxes[index].isRightBoxClicked = !updatedBoxes[index].isRightBoxClicked;
         setNewBoxes(updatedBoxes);
     };
 
-    const handleCategoryClick = (index, category) => {
+    const handleCategoryClick = (index: number, category: string) => {
         const updatedBoxes = [...newBoxes];
         updatedBoxes[index].selectedCategory = updatedBoxes[index].selectedCategory === category ? null : category;
+        setNewBoxes(updatedBoxes);
+    };
+
+    const handleContentChange = (index: number, content: string) => {
+        const updatedBoxes = [...newBoxes];
+        updatedBoxes[index].content = content;
         setNewBoxes(updatedBoxes);
     };
 
@@ -41,7 +53,7 @@ export default function TodayPlanDiv(props: TodayPlanProps) {
         setNewBoxes([...newBoxes, { selectedCategory: null, isRightBoxClicked: false }]);
     };
 
-    const handleRemoveBox = (index) => {
+    const handleRemoveBox = (index: number) => {
         setNewBoxes(newBoxes.filter((_, i) => i !== index)); // 특정 인덱스의 네모 칸 제거
     };
 
@@ -125,7 +137,7 @@ export default function TodayPlanDiv(props: TodayPlanProps) {
                         alignItems: 'center',
                         position: 'relative',
                         marginRight: '20px',
-                        zIndex: 2,
+                        zIndex: 1000,
                         marginBottom: '10px',
                     }}
                 >
@@ -135,15 +147,19 @@ export default function TodayPlanDiv(props: TodayPlanProps) {
                             height: '101px',
                             flexShrink: '0',
                             borderRadius: '3px 0px 0px 3px',
-                            background: box.selectedCategory ? colors[box.selectedCategory].box : '#333',
+                            background: box.selectedCategory
+                                ? colors[box.selectedCategory].box
+                                : '#333',
                         }}
                     ></div>
                     <input
                         type="text"
-                        placeholder="일정 내용(최대 12자)"
+                        value={box.content}
+                        onChange={(e) => handleContentChange(index, e.target.value)}
+                        placeholder="  일정 내용(최대 12자)"
                         maxLength="12"
                         style={{
-                            marginLeft: '50px',
+                            marginLeft: '10px',
                             width: '200px',
                             height: '20px',
                             border: 'none',
@@ -160,7 +176,7 @@ export default function TodayPlanDiv(props: TodayPlanProps) {
                     {/*오른쪽 중간에 넣은 한 줄*/}
                     <div
                         style={{
-                            width: '190px',
+                            width: '200px',
                             height: '1px',
                             background: 'var(--gray20, #E2E2E2)',
                             position: 'absolute',
@@ -221,7 +237,9 @@ export default function TodayPlanDiv(props: TodayPlanProps) {
                                     height: '38px',
                                     borderRadius: '20px',
                                     backgroundColor:
-                                        selectedCategory === key ? 'var(--blue10, #C9D9FD)' : 'var(--gray5, #F6F6F6)',
+                                        box.selectedCategory === key 
+                                        ? 'var(--blue10, #C9D9FD)' 
+                                        : 'var(--gray5, #F6F6F6)',
                                     border: 'none',
                                     cursor: 'pointer',
                                     display: 'flex',
@@ -234,7 +252,9 @@ export default function TodayPlanDiv(props: TodayPlanProps) {
                                 <span
                                     style={{
                                         color:
-                                            box.selectedCategory === key ? colors[key].text : 'var(--gray40, #B0B0B0)',
+                                            box.selectedCategory === key 
+                                                ? colors[key].text 
+                                                : 'var(--gray40, #B0B0B0)',
                                         fontSize: '24px',
                                         textAlign: 'center',
                                         fontFamily: 'Pretendard',
@@ -255,18 +275,23 @@ export default function TodayPlanDiv(props: TodayPlanProps) {
                             width: '39px',
                             height: '101px',
                             flexShrink: '0',
-                            borderRadius: '0px 20px 20px 0px',
-                            background: isRightBoxClicked ? 'var(--red1, #EE3579)' : 'var(--gray30, #CACACA)',
+                            borderRadius: '20px 20px 20px 20px',
+                            background: isRightBoxClicked 
+                                ? 'var(--red1, #EE3579)' 
+                                : 'var(--gray30, #CACACA)',
                             position: 'absolute',
-                            right: '-20px',
+                            right: '-35px',
                             top: '0',
                             border: 'none',
                             cursor: 'pointer',
-                            zIndex: 0,
+                            zIndex: 1,
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
+                            
                         }}
+                        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#EE3579'} // 마우스 오버 색상
+                        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#CACACA'} // 마우스 떠날 때 색상
                     >
                         <span
                             style={{
