@@ -8,6 +8,8 @@ import Addplan from './tabs/addplan.tsx';
 import Analysis from './tabs/analysis.tsx';
 import Calendar from './tabs/calendar.tsx';
 import Mypage from './tabs/mypage.tsx';
+import SetRule from './tabs/setRule.tsx';
+
 import './App.css';
 
 function App() {
@@ -23,6 +25,7 @@ function App() {
                     <Route path="/analysis" element={<Analysis />} />
                     <Route path="/calendar" element={<Calendar />} />
                     <Route path="/mypage" element={<Mypage />} />
+                    <Route path="/setRule" element={<SetRule />} />
                 </Routes>
             </div>
         </BrowserRouter>
