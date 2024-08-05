@@ -135,7 +135,18 @@ export default function Calendar() {
                                             backgroundColor: '#fff',
                                             borderRadius: '10px',
                                         }}
-                                    ></div>
+                                    >
+                                        <input
+                                            type="text"
+                                            placeholder="일정 내용을 입력하세요.(최대 12자)"
+                                            style={{
+                                                width:'200px',
+                                                backgroundColor:'#fff',
+                                                height: '10px',
+                                                borderRadius:'5px',
+                                            }}
+                                        />
+                                    </div>
                                     <div
                                         style={{
                                             width: '280px',
@@ -143,8 +154,80 @@ export default function Calendar() {
                                             margin: '12px auto',
                                             backgroundColor: '#fff',
                                             borderRadius: '10px',
+                                            position: 'relative',
                                         }}
-                                    ></div>
+                                    >
+                                        <hr
+                                            style={{
+                                                position: 'absolute', 
+                                                top: '37%',
+                                                left: '50%', 
+                                                transform: 'translate(-50%, -50%)', 
+                                                width: '220px',
+                                                height: '0.5px',
+                                                backgroundColor: '#CACACA',
+                                                border: 'none', 
+                                            }}
+                                        />
+                                        <div
+                                            style={{
+                                            position: 'absolute',
+                                            top: 'calc(40% - 15px)', // hr의 중앙에서 15px 위쪽 위치
+                                            left: '40px', // hr 기준으로 왼쪽에서 10px 떨어진 위치
+                                            fontFamily: 'Pretendard',
+                                            fontSize: '12px',
+                                            fontStyle: 'normal',
+                                            fontWeight: '500',
+                                            lineHeight: 'normal',
+                                            }}
+                                        >
+                                            시작
+                                        </div>
+                                        <input
+                                            placeholder="00 : 00"
+                                            type="date"
+                                            style={{
+                                            position: 'absolute',
+                                            top: 'calc(37% - 27px)', // "시작" 텍스트 바로 오른쪽에 위치
+                                            left: 'calc(50% - 13px)',
+                                            width: '70px',
+                                            height: '1px', // 높이를 20px로 조정
+                                            borderRadius: '4px',
+                                            margin: '5px 0 5px 15px',
+                                            border: '1px solid #4470F3',
+                                            fontSize: '12px',
+                                            }}
+                                        ></input>
+                                        <div
+                                            style={{
+                                            position: 'absolute',
+                                            top: 'calc(40% + 15px)', // hr의 중앙에서 15px 아래쪽 위치
+                                            left: '40px', // hr 기준으로 왼쪽에서 10px 떨어진 위치
+                                            fontFamily: 'Pretendard',
+                                            fontSize: '12px',
+                                            fontStyle: 'normal',
+                                            fontWeight: '500',
+                                            lineHeight: 'normal',
+                                            }}
+                                        >
+                                            종료
+                                        </div>
+                                        <input
+                                            placeholder="00 : 00"
+                                            type="date"
+                                            style={{
+                                                position: 'absolute',
+                                                top: 'calc(37% + 8px)', // "종료" 텍스트 바로 오른쪽에 위치
+                                                left: 'calc(50% - 13px)',
+                                                width: '70px',
+                                                height: '1px',
+                                                borderRadius: '4px',
+                                                margin: '5px 0 5px 15px',
+                                                border: '1px solid #4470F3',
+                                                fontSize: '12px',
+                                            }}
+                                        ></input>
+                                    </div>
                                     <div
                                         style={{
                                             width: '280px',
@@ -152,8 +235,24 @@ export default function Calendar() {
                                             margin: '12px auto',
                                             backgroundColor: '#fff',
                                             borderRadius: '10px',
+                                            position: 'relative',
                                         }}
-                                    ></div>
+                                    >
+                                        <div
+                                            style={{
+                                            position: 'absolute',
+                                            transform: 'translateY(70%)',
+                                            left: '40px', 
+                                            fontFamily: 'Pretendard',
+                                            fontSize: '12px',
+                                            fontStyle: 'normal',
+                                            fontWeight: '500',
+                                            lineHeight: 'normal',
+                                            }}
+                                        >
+                                            카테고리
+                                        </div>
+                                    </div>
                                     <div
                                         style={{
                                             width: '280px',
